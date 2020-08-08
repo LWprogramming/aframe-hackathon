@@ -6,6 +6,7 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
     <script type="text/javascript">
       /* jshint esversion: 6 */
       AFRAME.registerComponent('request-response', {
@@ -31,11 +32,12 @@
     </a-assets>
     <!-- <a-sky color="#65dbc8"></a-sky> -->
 
-    <a-entity position="0 0 0" rotation="0 0 0">
-      <a-entity camera look-controls wasd-controls="fly:true">
+    <a-entity position="0 1 0" rotation="0 0 0">
+      <a-entity camera look-controls wasd-controls="fly:false">
         <a-cursor></a-cursor>
       </a-entity>
     </a-entity>
+        <a-entity environment="preset: forest"><a-entity>
     <a-entity text-geometry="value: What's upDog?" position="0.1 0.1 -3" color="#ff0000" scale="1 1.2 1" look-at="[camera]"></a-entity>
     <a-entity id="response" color="#ffffff" position="0.1 -0.4 -3" request-response></a-entity>
 
