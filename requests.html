@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>text</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script> 
+
+    <script type="text/javascript">
+      /* jshint esversion: 6 */
+      AFRAME.registerComponent('request-response', {
+        init: function () {
+          const Http = new XMLHttpRequest();
+          const url='https://jsonplaceholder.typicode.com/posts';
+          // const url = 'https://google.com'; // doesn't work due to some CORS issue
+          Http.open("GET", url);
+          Http.send();
+          Http.onreadystatechange = (e) => {
+            var truncatedResponseText = Http.responseText.substring(0, 15); // limit the number of characters the computer has to render so it doesn't overload
+            var el = this.el;
+            el.setAttribute("text-geometry", "value: " + truncatedResponseText);
+          };
+        }
+      });
+    </script>
+</head>
+<body>
+  <a-scene id="scene">
+    <a-assets>
+      <!-- <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item> -->
+    </a-assets>
+    <!-- <a-sky color="#65dbc8"></a-sky> -->
+
+    <a-entity position="0 0 0" rotation="0 0 0">
+      <a-entity camera look-controls wasd-controls="fly:true">
+        <a-cursor></a-cursor>
+      </a-entity>
+    </a-entity>
+    <a-entity text-geometry="value: What's upDog?" position="0.1 0.1 -3" color="#ff0000" scale="1 1.2 1"></a-entity>
+    <a-entity id="response" color="#ffffff" position="0.1 -0.4 -3" request-response></a-entity>
+
+  </a-scene>
+
+</body>
+</html>
