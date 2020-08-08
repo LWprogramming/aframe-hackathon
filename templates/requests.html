@@ -29,7 +29,7 @@
   <a-scene id="scene">
     <a-assets>
       <!-- <a-asset-item id="optimerBoldFont" src="https://rawgit.com/mrdoob/three.js/dev/examples/fonts/optimer_bold.typeface.json"></a-asset-item> -->
-      <a-asset-item id="duck" src="scene.gltf"></a-asset-item>
+      <a-asset-item id="duck" src="{{ url_for('static', filename='scene.gltf') }}"></a-asset-item>
       <!-- duck asset created by patspet, https://sketchfab.com/3d-models/baby-duck-a33f6e51b82f48c6b5e318d48ad1e2c7. Commercial use allowed, must credit author. -->
     </a-assets>
     <!-- <a-sky color="#65dbc8"></a-sky> -->
