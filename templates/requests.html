@@ -7,6 +7,7 @@
     <script src="https://unpkg.com/aframe-text-geometry-component@^0.5.0/dist/aframe-text-geometry-component.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://rawgit.com/feiss/aframe-environment-component/master/dist/aframe-environment-component.min.js"></script>
+    <script src="{{ url_for('static', filename='aframe-material.js') }}"></script>
     <script type="text/javascript">
       /* jshint esversion: 6 */
       AFRAME.registerComponent('request-response', {
@@ -35,7 +36,7 @@
     <!-- <a-sky color="#65dbc8"></a-sky> -->
 
     <a-entity position="0 0.6 0" rotation="0 0 0">
-      <a-entity camera look-controls wasd-controls="fly:false">
+      <a-entity camera look-controls wasd-controls="fly:true">
         <a-cursor></a-cursor>
       </a-entity>
     </a-entity>
@@ -45,7 +46,15 @@
       <a-entity text-geometry="value: What's upDog?" position="0 1 -4" color="#ff0000" look-at="[camera]"></a-entity>
       <a-entity id="response" color="#ffffff" position="0.1 4 -3" request-response></a-entity>
     </a-entity>
+    <!--<a-form action="\reply" method="post" id="form">-->
+    <!--  <div class="form-group">-->
+    <!--    <a-input autocomplete="off" autofocus class="form-control" name="symbol" placeholder="Stock symbol" type="text" id="quote">-->
+    <!--  </div>-->
+    <!--  <a-button class="btn btn-primary" type="submit">Quote</a-button>-->
+    <!--</a-form>-->
+    <a-keyboard is-open="true"></a-keyboard>
+    <a-input position="-0.7 1 -2.5" placeholder="Username" color="black" width="1"></a-input>
+    <!--<a-input position="-0.7 0.8 -2.5" type="password" placeholder="Password" color="black" width="1"></a-input>-->
   </a-scene>
-
 </body>
 </html>
