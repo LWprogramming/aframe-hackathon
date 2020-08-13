@@ -25,6 +25,7 @@ def reply():
     openai.api_key = "nice try"
     completion = openai.Completion()
 
+    # provding the initial prompts
     start_chat_log = """The following is a conversation between a human and their friend AI. The AI is quite friendly, thoughtful, optimistic, empathetic, and is good at listening.
 
 Human: Hello
@@ -48,31 +49,41 @@ AI: Well, you can try to do these things on a daily basis. Don't wait for the we
 Human: That makes sense. Now that I think of it I don't treat everyday like a special occasion, but maybe I should. After all I don't know which day might be my last. I'm gonna try that strategy!
 """
 
+    # getting post request from requests.html
     question = ([i for i in request.form.keys()][0])
     print("human input: " + question)
+    
     global chat_log
 
     '''Check if it's the first question?'''
     if not chat_log:
         chat_log = start_chat_log
 
-    prompt = f"{chat_log}Human: {question}\nAI:"  # format the prompt
+    # format the prompt
+    prompt = f"{chat_log}\nHuman: {question}\nAI:"  
 
     # generate reponse from the API
-
     response = completion.create(
             prompt=prompt, engine="davinci", stop=['\nHuman'], temperature=0.9,
             top_p=1, frequency_penalty=0, presence_penalty=0.6, best_of=1,
             max_tokens=150)
 
+    # extract answer from response
     answer = response.choices[0].text.strip()
 
-    #chat_log += "Human:" + question + "AI:" + response
+    # storing the chat logs
+    chat_log = prompt + answer
+
+    # printing chat logs
+    print("------------------")
+    print(chat_log)
+    print("------------------")
 
     print(answer)
 
     print('received request')
 
+    # returning the answer
     return jsonify({'answer': answer})
 
 
