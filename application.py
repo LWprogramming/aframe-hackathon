@@ -25,38 +25,20 @@ def reply():
     openai.api_key = "nice try"
     completion = openai.Completion()
 
-    # provding the initial prompts
-    start_chat_log = """The following is a conversation between a human and their friend AI. The AI is quite friendly, thoughtful, optimistic, empathetic, and is good at listening.
-
-Human: Hello
-AI: Hey, how's it going?
-Human: Alright. I have been feeling kinda down lately.
-AI: I'm sorry to hear that. How long have you been feeling that way?
-Human: About a week or so. I have no motivation to do anything and things just haven't been working out in general.
-AI: Did you talk to your friends about this?
-Human: Not yet. I feel like I am not close enough with any of my friends to talk about stuff like this. It would be weird.
-AI: I see. Well, you are not alone. You can talk to me!
-Human: Thanks I appreciate you being here for me.
-AI: It's my pleasure. So let's talk about it. Why do you think you feel the way you do?
-Human: I don't know. Maybe because I work all day. I never have time for myself and I haven't hung out with friends in a while.
-AI: I can see why you feel this way. Your'e not appreciating life. Sure you're setting goals for yourself and working towards them, but it seems like you're not taking the time to work on your wellbeing.
-Human: Can you give me some advice? What helps in these situations?
-AI: Do what you enjoy most of the time. It doesn't have to be something serious. Just do something you like to do. And exercise. Spend more time with your friends too.
-Human: I haven't been exercising much lately so you might be right. I've also been so caught up with work. I don't remember the last time I watched a good movie or went out with friends. I guess I just feel like I have had more important things to do.
-AI: You do. But you have to find a balance. Having time for your hobbies and friends will help you deal with the stress.
-Human: I have tried to balance my life but I always fail to make it permanent. How can I get better at this?
-AI: Well, you can try to do these things on a daily basis. Don't wait for the weekends or special occasions to take care of your well-being. Start doing them now and see if it works.
-Human: That makes sense. Now that I think of it I don't treat everyday like a special occasion, but maybe I should. After all I don't know which day might be my last. I'm gonna try that strategy!
-"""
-
     # getting post request from requests.html
     question = ([i for i in request.form.keys()][0])
     print("human input: " + question)
     
     global chat_log
 
-    '''Check if it's the first question?'''
+    '''Check if it's the first question?, i.e., the chat log is empty'''
     if not chat_log:
+        # reading the promts file for initial training data
+        prompt_file = open('prompts.txt', 'r')
+        start_chat_log = prompt_file.read()
+        propmt_file.close()
+        
+        # storing the initial prompts to chat_log
         chat_log = start_chat_log
 
     # format the prompt
