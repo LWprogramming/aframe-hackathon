@@ -1,9 +1,20 @@
-from flask import Flask, render_template, json, request, jsonify
+from flask import Flask, render_template, json, request, jsonify, session
+from flask_session import Session
+from tempfile import mkdtemp
 import openai
 
 app = Flask(__name__)
-chat_log = ""
 
+# Ensure templates are auto-reloaded
+app.config["TEMPLATES_AUTO_RELOAD"] = True
+
+# Configure session to use filesystem (instead of signed cookies)
+app.config["SESSION_FILE_DIR"] = mkdtemp()
+app.config["SESSION_PERMANENT"] = True
+app.config["SESSION_TYPE"] = "filesystem"
+Session(app)
+
+chat_log = ""
 FILENAME = 'requests.html'
 
 @app.route('/', methods=["GET", "POST"])
