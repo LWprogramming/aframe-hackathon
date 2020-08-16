@@ -14,13 +14,11 @@ app.config["SESSION_PERMANENT"] = True
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
 
-chat_log = ""
 FILENAME = 'requests.html'
 
 @app.route('/', methods=["GET", "POST"])
 def hello():
     '''The display page for the user'''
-
     return render_template(FILENAME)
 
 @app.route('/index')
@@ -33,27 +31,28 @@ def index():
 def reply():
     '''Processses the input from user and returns it back to the html page'''
 
-    openai.api_key = "nice try"
+    openai.api_key = 'nice try'
     completion = openai.Completion()
 
     # getting post request from requests.html
     question = ([i for i in request.form.keys()][0])
-    print("human input: " + question)
     
-    global chat_log
+    # getting post request from index.html
+    #question = request.form['question']
+
+    print("human input: " + question)
 
     '''Check if it's the first question?, i.e., the chat log is empty'''
-    if not chat_log:
+    if 'chat_log' not in session:
+        session['chat_log'] = []
         # reading the promts file for initial training data
         prompt_file = open('prompts.txt', 'r')
         start_chat_log = prompt_file.read()
-        propmt_file.close()
-        
-        # storing the initial prompts to chat_log
-        chat_log = start_chat_log
+        session['chat_log'].append(start_chat_log)
+        prompt_file.close()
 
     # format the prompt
-    prompt = f"{chat_log}\nHuman: {question}\nAI:"  
+    prompt = f"{session['chat_log'][0]}\nHuman: {question}\nAI:"  
 
     # generate reponse from the API
     response = completion.create(
@@ -65,11 +64,11 @@ def reply():
     answer = response.choices[0].text.strip()
 
     # storing the chat logs
-    chat_log = prompt + answer
+    session['chat_log'][0] = prompt + answer
 
     # printing chat logs
     print("------------------")
-    print(chat_log)
+    print(session['chat_log'][0])
     print("------------------")
 
     print(answer)
