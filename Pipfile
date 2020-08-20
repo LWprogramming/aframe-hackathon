@@ -5,6 +5,9 @@ verify_ssl = true
 
 [packages]  # Make sure to keep in sync with setup.py requirements.
 flask = "1.1.2"
+openai = "0.2.4"
+Flask-Session = "0.3.2" # unsure what this does, let's talk about it
+
 
 [requires]
-python_version = "3"
+python_version = "3.8"
